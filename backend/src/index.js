@@ -14,7 +14,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
-// ✅ Middleware for large payloads
+// Middleware for large payloads
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
@@ -26,7 +26,7 @@ app.use(
   })
 );
 
-// ✅ Prevent duplicate POST requests
+// Prevent duplicate POST requests
 const preventDuplicateRequests = new Set();
 app.use((req, res, next) => {
   if (req.method === "POST" && req.originalUrl.includes("/messages")) {
@@ -40,11 +40,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// ✅ API routes
+// API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// ✅ Serve frontend in production
+// Serve frontend in production
 if (process.env.NODE_ENV === "production") {
   const frontendPath = path.join(__dirname, "../frontend/dist");
 
@@ -57,7 +57,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// ✅ Start server
+// Start server
 server.listen(PORT, () => {
   console.log(`Server is running on PORT: ${PORT}`);
   connectDB();
